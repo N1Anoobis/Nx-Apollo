@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, DoCheck } from '@angular/core';
 import { InMemoryCache } from '@apollo/client/cache/inmemory/inMemoryCache';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
@@ -17,18 +17,18 @@ const query = gql`
   selector: 'nx-apollo-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, DoCheck {
   todos!: any[];
   loading = true;
   error: any;
-  cache!: InMemoryCache;
-  reactiveVar: any;
-  data: any;
+  // cache!: InMemoryCache;
+  // reactiveVar: any;
+  displayData: any;
 
   constructor(private apollo: Apollo) {}
-
+ 
   ngOnInit() {
     this.apollo
       .watchQuery({
@@ -38,12 +38,17 @@ export class AppComponent implements OnInit {
         this.todos = result.data.allTodos;
         this.loading = result.loading;
       });
-    this.data = this.apollo.client.readQuery({ query });
+    // this.data = this.apollo.client.readQuery({ query });
+    this.readDataFromCache()
+  }
+
+  ngDoCheck(): void {
+    console.log(this.displayData)
   }
 
   readDataFromCache() {
-    this.data = this.apollo.client.readQuery({ query });
-    console.log(this.data);
+    this.displayData = this.apollo.client.readQuery({ query });
+    console.log(this.displayData);
   }
 
   addDataToCache() {
@@ -56,17 +61,18 @@ export class AppComponent implements OnInit {
     this.apollo.client.writeQuery({
       query,
       data: {
-        allTodos: [...this.data.allTodos, myNewTodo],
+        allTodos: [...this.todos, myNewTodo],
       },
     });
   }
 
   removeAllDataFromCache() {
-    this.apollo.client.writeQuery({
-      query,
-      data: {
-        allTodos: [],
-      },
-    });
+    this.apollo.client.resetStore()
+    // this.apollo.client.writeQuery({
+    //   query,
+    //   data: {
+    //     allTodos: [],
+    //   },
+    // });
   }
 }
