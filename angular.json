@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "training-apollo": "apps/training-apollo",
+    "training-apollo-e2e": "apps/training-apollo-e2e"
+  }
+}

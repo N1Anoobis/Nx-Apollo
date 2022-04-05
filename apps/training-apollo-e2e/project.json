@@ -1,0 +1,28 @@
+{
+  "root": "apps/training-apollo-e2e",
+  "sourceRoot": "apps/training-apollo-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/training-apollo-e2e/cypress.json",
+        "devServerTarget": "training-apollo:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "training-apollo:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/training-apollo-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["training-apollo"]
+}
