@@ -1,33 +1,57 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { gql } from '@apollo/client';
+import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-
-const query = gql`
-  {
-    allTodos {
-      id
-      title
-      status
-    }
-  }
-`;
+import { GET_ALL_TODOS as query } from '../gqlQueries/gqlQueries';
 
 @Component({
   selector: 'nx-apollo-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
-  constructor(private apollo: Apollo) {}
+  todos!: any[];
+  loading = true;
+  error: any;
+  displayData: any;
 
-  ngOnInit(): void {
-    console.log('home is ready');
+  constructor(private apollo: Apollo) {}
+ 
+  ngOnInit() {
+    this.apollo
+      .watchQuery({
+        query: query,
+      })
+      .valueChanges.subscribe((result: any) => {
+        this.todos = result.data.allTodos;
+        this.loading = result.loading;
+      });
+    this.apollo.client.cache
   }
 
-  getCachedData(): void {
-    const data = this.apollo.client.readQuery({ query });
-    console.log('clicked');
-    console.log(data);
+  ngDoCheck(): void {
+    console.log(this.displayData)
+  }
+
+  readDataFromCache() {
+    this.displayData = this.apollo.client.readQuery({ query });
+    console.log(this.displayData);
+  }
+
+  addDataToCache() {
+    const myNewTodo = {
+      id: '6',
+      title: 'Start using Apollo Client.',
+      status: 'power wafel',
+    };
+
+    this.apollo.client.writeQuery({
+      query,
+      data: {
+        allTodos: [...this.todos, myNewTodo],
+      },
+    });
+  }
+
+  removeAllDataFromCache() {
+    this.apollo.client.resetStore()
   }
 }

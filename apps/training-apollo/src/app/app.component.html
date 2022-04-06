@@ -1,19 +1,7 @@
-<div *ngIf="loading">
-    Loading...
-  </div>
-  <div *ngIf="error">
-    Error :(
-  </div>
-  <div *ngIf="todos">
-    <div *ngFor="let todo of todos">
-      <p>{{ todo.title }}</p>:<p> {{ todo.status }}</p>
-    </div>
-  </div>
+<!-- <nx-apollo-home></nx-apollo-home> -->
 
-  <button (click)="readDataFromCache()">Get data stored in Apollo cache</button>
+<nx-apollo-shell>
 
-  <button (click)="addDataToCache()">Add data to Apollo cache</button>
+<router-outlet></router-outlet>
 
-  <button (click)="removeAllDataFromCache()">Remove all data from Apollo cache</button>
-
-  <nx-apollo-home></nx-apollo-home>
+</nx-apollo-shell>
