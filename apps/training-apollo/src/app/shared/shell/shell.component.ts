@@ -1,5 +1,5 @@
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
 
 @Component({
@@ -7,7 +7,7 @@ import { map, Observable, shareReplay } from 'rxjs';
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss']
 })
-export class ShellComponent implements OnInit {
+export class ShellComponent {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
     .pipe(
@@ -16,8 +16,7 @@ export class ShellComponent implements OnInit {
     );
 
   constructor(private breakpointObserver: BreakpointObserver) {}
-  ngOnInit(): void {
-    console.log('Shell');
-  }
+
+  logged = false;
 
 }

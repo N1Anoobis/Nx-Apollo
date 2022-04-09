@@ -36,9 +36,20 @@
         <div *ngIf="(isHandset$ | async) === false">
           <a mat-button routerLink="/kanban">🍱 Kanban Demo</a>
           <a mat-button routerLink="/customers">⚡ SSR Demo</a>
-  
+        
           <a mat-button routerLink="/login">🔑 Login</a>
-  
+          <nx-apollo-auth-button>
+          </nx-apollo-auth-button>
+
+
+
+
+
+
+
+
+
+
         </div>
   
         <!-- DROPDOWN MENU -->

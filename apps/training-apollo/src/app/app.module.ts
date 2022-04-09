@@ -3,16 +3,22 @@ import {HttpClientModule} from '@angular/common/http';
 import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import {HttpLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module'
 import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './login/login.component';
+import { AuthModule } from '@auth0/auth0-angular';
+import { AuthButtonComponent } from './auth-button/auth-button.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
-  imports: [BrowserModule, ApolloModule, HttpClientModule, BrowserAnimationsModule, SharedModule, AppRoutingModule],
+  declarations: [AppComponent, HomeComponent, LoginComponent, AuthButtonComponent],
+  imports: [BrowserModule, ApolloModule, HttpClientModule, BrowserAnimationsModule, SharedModule, AppRoutingModule, AuthModule.forRoot({
+    domain: 'anoobis.eu.auth0.com',
+    clientId: 'CCCBuFZalP9ZiLZJj5WExQS7dFEXQTXe'
+  }),],
   providers: [
     {
       provide: APOLLO_OPTIONS,
@@ -24,9 +30,10 @@ import { AppRoutingModule } from './app-routing.module';
           }),
         };
       },
-      deps: [HttpLink],
+      deps: [HttpLink], 
     },
   ],
   bootstrap: [AppComponent],
+ 
 })
 export class AppModule {}
