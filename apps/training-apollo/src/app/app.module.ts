@@ -12,13 +12,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { AuthButtonComponent } from './auth-button/auth-button.component';
-
+import { LogoutButtonComponent } from './logout-button/logout-button.component';
+import { MatTableModule } from '@angular/material/table' 
+import { MatSortModule } from '@angular/material/sort';
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, AuthButtonComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, AuthButtonComponent, LogoutButtonComponent, ],
   imports: [BrowserModule, ApolloModule, HttpClientModule, BrowserAnimationsModule, SharedModule, AppRoutingModule, AuthModule.forRoot({
     domain: 'anoobis.eu.auth0.com',
     clientId: 'CCCBuFZalP9ZiLZJj5WExQS7dFEXQTXe'
-  }),],
+  }),MatTableModule,MatSortModule],
   providers: [
     {
       provide: APOLLO_OPTIONS,
