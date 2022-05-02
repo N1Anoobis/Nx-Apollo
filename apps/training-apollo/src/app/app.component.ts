@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'nx-apollo-root',
@@ -6,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit  {
+  isLoggedIn$: Observable<boolean>;
+
+  constructor( private auth: AuthService) {
+
+  }
+
 
   ngOnInit(): void {
-    console.log('ready')
+      this.isLoggedIn$ = this.auth.isLoggedIn;
   }
 }

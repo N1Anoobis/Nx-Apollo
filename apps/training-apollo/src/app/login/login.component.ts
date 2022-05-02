@@ -1,30 +1,38 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {Component} from '@angular/core';
+import { AuthService } from './../auth/auth.service';
 
 @Component({
   selector: 'nx-apollo-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent  {
+export class LoginComponent implements OnInit {
+  form: FormGroup;
+  private formSubmitAttempt: boolean;
 
-  // login: boolean = true; // switch between Login and SignUp
-  // email: string = '';
-  // password: string = '';
-  // name: string = '';
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
-  // constructor(private authService: AuthService) {
-  // }
-
-  // ngOnInit() {
-  // }
-
-  // confirm() {
-  //   // ... you'll implement this in a bit
-  // }
-
-  // saveUserData(id, token) {
-  //   localStorage.setItem(GC_USER_ID, id);
-  //   localStorage.setItem(GC_AUTH_TOKEN, token);
-  //   this.authService.setUserId(id);
+  ngOnInit() {
+    this.form = this.fb.group({
+      userName: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+    console.log('init Login');
   }
+
+  isFieldInvalid(field: string) {
+    return (
+      (!this.form.get(field).valid && this.form.get(field).touched) ||
+      (this.form.get(field).untouched && this.formSubmitAttempt)
+    );
+  }
+
+  onSubmit() {
+    if (this.form.valid) {
+      this.authService.login(this.form.value);
+    }
+    this.formSubmitAttempt = true;
+  }
+}

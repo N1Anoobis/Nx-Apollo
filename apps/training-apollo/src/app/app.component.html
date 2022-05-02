@@ -1,3 +1,4 @@
 <nx-apollo-shell>
-    <router-outlet></router-outlet>
 </nx-apollo-shell>
+<router-outlet *ngIf="(isLoggedIn$ | async) === false">
+</router-outlet>

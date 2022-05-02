@@ -1,10 +1,10 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { GET_ALL_USERS, GET_ALL_TODOS } from '../gqlQueries/gqlQueries';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {AfterViewInit, ViewChild} from '@angular/core';
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { GET_ALL_TODOS } from '../gqlQueries/gqlQueries';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface PeriodicElement {
   name: string;
@@ -14,16 +14,16 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
 ];
 
 /**
@@ -34,8 +34,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-
-export class HomeComponent implements OnInit, DoCheck ,AfterViewInit {
+export class HomeComponent implements OnInit, DoCheck, AfterViewInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   todos: any[];
@@ -44,7 +43,6 @@ export class HomeComponent implements OnInit, DoCheck ,AfterViewInit {
   displayData: any;
   // query2: Query<OperationVariables, any>;
   displayData2: any;
-
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -64,10 +62,8 @@ export class HomeComponent implements OnInit, DoCheck ,AfterViewInit {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-  
 
-  constructor(private apollo: Apollo,private _liveAnnouncer: LiveAnnouncer) {}
-
+  constructor(private apollo: Apollo, private _liveAnnouncer: LiveAnnouncer) {}
 
   // @ViewChild(MatSort) sort: MatSort;
 
@@ -81,27 +77,27 @@ export class HomeComponent implements OnInit, DoCheck ,AfterViewInit {
         this.todos = result.data.allTodos;
         this.loading = result.loading;
       });
-  //   this.apollo.client.cache
-  //   this.apollo
-  //   .watchQuery({
-  //     query: GET_ALL_USERS,
-  //   })
-  //   .valueChanges.subscribe((result: any) => {
-  //     this.todos = result.data.allTodos;
-  //     this.loading = result.loading;
-  //   });
+    //   this.apollo.client.cache
+    //   this.apollo
+    //   .watchQuery({
+    //     query: GET_ALL_USERS,
+    //   })
+    //   .valueChanges.subscribe((result: any) => {
+    //     this.todos = result.data.allTodos;
+    //     this.loading = result.loading;
+    //   });
   }
 
   ngDoCheck(): void {
     console.log(this.todos);
-    this.displayData = this.apollo.client.readQuery({query:GET_ALL_TODOS});
+    this.displayData = this.apollo.client.readQuery({ query: GET_ALL_TODOS });
     console.log(this.displayData);
     // this.displayData2 = this.apollo.client.readQuery({query: GET_ALL_USERS });
     // console.log(this.displayData2);
   }
 
   readDataFromCache() {
-    this.displayData = this.apollo.client.readQuery({ query: GET_ALL_TODOS});
+    this.displayData = this.apollo.client.readQuery({ query: GET_ALL_TODOS });
     console.log(this.displayData);
   }
 
@@ -112,13 +108,8 @@ export class HomeComponent implements OnInit, DoCheck ,AfterViewInit {
       status: 'power wafel',
     };
 
-// for (const iterator of ...this.todos) {
-  console.log(this.todos)
-// }
-
-
-
-
+    console.log(this.todos);
+  
     this.apollo.client.writeQuery({
       query: GET_ALL_TODOS,
       data: {
@@ -128,6 +119,6 @@ export class HomeComponent implements OnInit, DoCheck ,AfterViewInit {
   }
 
   removeAllDataFromCache() {
-    this.apollo.client.resetStore()
+    this.apollo.client.resetStore();
   }
 }

@@ -9,18 +9,35 @@ import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module'
 import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './login/login.component';
 import { AuthModule } from '@auth0/auth0-angular';
-import { AuthButtonComponent } from './auth-button/auth-button.component';
-import { LogoutButtonComponent } from './logout-button/logout-button.component';
 import { MatTableModule } from '@angular/material/table' 
 import { MatSortModule } from '@angular/material/sort';
+import { OtherComponent } from './other/other.component';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { LoginComponent } from './login/login.component';
+// import { AuthService } from './auth.service';
+
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, AuthButtonComponent, LogoutButtonComponent, ],
+  declarations: [LoginComponent ],
   imports: [BrowserModule, ApolloModule, HttpClientModule, BrowserAnimationsModule, SharedModule, AppRoutingModule, AuthModule.forRoot({
     domain: 'anoobis.eu.auth0.com',
     clientId: 'CCCBuFZalP9ZiLZJj5WExQS7dFEXQTXe'
-  }),MatTableModule,MatSortModule],
+  }),MatTableModule,MatSortModule, 
+  FormsModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatButtonModule,
+  MatIconModule,
+  MatCardModule,
+  
+ ],
   providers: [
     {
       provide: APOLLO_OPTIONS,
@@ -33,7 +50,8 @@ import { MatSortModule } from '@angular/material/sort';
         };
       },
       deps: [HttpLink], 
-    },
+    },MediaMatcher,
+    // AuthService
   ],
   bootstrap: [AppComponent],
  

@@ -1,22 +1,34 @@
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Component } from '@angular/core';
-import { map, Observable, shareReplay } from 'rxjs';
+import { Component, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { AuthService } from '../../auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'nx-apollo-shell',
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss']
 })
-export class ShellComponent {
+export class ShellComponent implements OnInit, OnDestroy {
+  collapsedNav: boolean;
+  mobileQuery: MediaQueryList;
+  isLoggedIn$: Observable<boolean>;
+  private _mobileQueryListener: () => void;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private auth: AuthService) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  ngOnInit() {
+    this.isLoggedIn$ = this.auth.isLoggedIn;
+  }
 
-  logged = false;
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
 
+  handleLogOut() {
+    this.auth.logout()
+  }
 }

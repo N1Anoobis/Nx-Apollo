@@ -1,29 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
-import {LogoutButtonComponent} from './logout-button/logout-button.component';
-import {AuthButtonComponent} from './auth-button/auth-button.component';
+import { LoginComponent } from './login/login.component';
+import { OtherComponent } from './other/other.component';
+
 const routes: Routes = [
-    { path: 'home', component: HomeComponent },
-    // {
-    //   path: '',
-    //   component: LinkListComponent,
-    //   pathMatch: 'full'
-    // },
-    {
-      path: 'create',
-      component: LogoutButtonComponent,
-      pathMatch: 'full'
-    },
-    {
-      path: '',
-      component: LogoutButtonComponent,
-      pathMatch: 'full'
-    },
-    {
-      path: '**',
-      redirectTo: '',
-    }
+  { path: 'login', component: LoginComponent },
+  { path: 'home',
+   component: HomeComponent, 
+   canActivate: [AuthGuard] },
+  {
+    path: 'create',
+    component: OtherComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+  },
 ];
 
 @NgModule({

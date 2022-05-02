@@ -1,3 +1,9 @@
-.fill-space {
-    width: 100%;
+.logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.isActive {
+    color: orange;
 }

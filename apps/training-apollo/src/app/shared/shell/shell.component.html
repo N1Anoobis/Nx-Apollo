@@ -1,98 +1,45 @@
-
-<mat-sidenav-container class="sidenav-container">
-
-  
-    <mat-sidenav #drawer class="sidenav" fixedInViewport
-        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-        [mode]="(isHandset$ | async) ? 'over' : 'side'"
-        [opened]="false">
-      <mat-toolbar>Menu</mat-toolbar>
-      <mat-nav-list>
-       
-        <a mat-list-item routerLink="/" (click)="drawer.close()">Home</a>
-    
-        <a mat-list-item routerLink="/kanban" (click)="drawer.close()">Kanban Demo</a>
-        <a mat-list-item routerLink="/customers" (click)="drawer.close()">SSR Demo</a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-  
-
- 
-      <mat-toolbar>
-  
-        <button 
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="isHandset$ | async">
-  
-  
-          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
-        <span class="logo" routerLink="/">🔥 Apollo</span> -->
+<mat-drawer-container *ngIf="isLoggedIn$ | async as isLoggedIn">
+  <mat-drawer #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches"
+    [ngClass]="{'sidenav-collapsed': collapsedNav && !mobileQuery.matches}">
+    <div class="sidenav-header logo">
+      <mat_card-content>
+        <img mat-card-image src="../../../assets/ROCHE_LOGO_36px_RGB_DIGITAL.png" alt="logo">
+      </mat_card-content>
+    </div>
+    <ul>
+      <li routerLink="/home" routerLinkActive="isActive">
+        <mat-icon [matTooltipPosition]="'right'" *ngIf="collapsedNav && !mobileQuery.matches; else fullNamePriceList"
+          matTooltip="Info about the action">star</mat-icon>
+        <ng-template #fullNamePriceList>
+          Delivery Price List
+        </ng-template>
+      </li>
+      <li routerLink="/create" routerLinkActive="isActive">
+        <mat-icon matTooltip="Info about the action" [matTooltipPosition]="'right'" *ngIf="collapsedNav && !mobileQuery.matches; else fullName">star
+        </mat-icon>
+        <ng-template #fullName>
+          Delivery Price Comparison
+        </ng-template>
+      </li>
+      <li (click)="handleLogOut()">
+        <mat-icon matTooltip="Info about the action" [matTooltipPosition]="'right'" *ngIf="collapsedNav && !mobileQuery.matches; else logOut">exit_to_app
+        </mat-icon>
      
-        <span class="fill-space"></span>
-        <div *ngIf="(isHandset$ | async) === false">
-          <a mat-button routerLink="/kanban">🍱 Kanban Demo</a>
-          <a mat-button routerLink="/customers">⚡ SSR Demo</a>
-        
-          <a mat-button routerLink="/login">🔑 Login</a>
- 
-   
-   
-
-
-
-
-
-
-
-
-
-        </div>
-  
-  
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        
-        <mat-menu #menu="matMenu">
-          <a mat-menu-item href="https://fireship.page.link/slack">
-            <i>💬</i>
-            <span>Chat on Slack</span>
-          </a>
-          <a mat-menu-item >
-           
-            <nx-apollo-logout-button>
-            </nx-apollo-logout-button>
-          </a>
-        
-        </mat-menu>
-      </mat-toolbar>
-
-      <ng-content>
-        
-      </ng-content>
-  
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-
-  <p>
-    <!-- <mat-toolbar>
-     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>My App</span>
-    <span class="example-spacer"></span>
-    <nx-apollo-logout-button>log
-    </nx-apollo-logout-button>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-     <mat-icon>share</mat-icon>
-   </button> 
-  </mat-toolbar> -->
-  </p>
+        <ng-template #logOut>
+          Logout
+        </ng-template>
+      </li>
+    </ul>
+  </mat-drawer>
+  <mat-drawer-content [ngClass]="{'sidenav-collapsed': collapsedNav && !mobileQuery.matches}">
+    <mat-toolbar>
+      <!-- <button mat-icon-button (click)="snav.toggle()"> -->
+      <button mat-icon-button (click)="mobileQuery.matches ? snav.toggle() : collapsedNav = !collapsedNav">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+    <ng-include>
+      <router-outlet ></router-outlet>
+    </ng-include>
+  </mat-drawer-content>
+</mat-drawer-container>

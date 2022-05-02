@@ -13,8 +13,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ShellComponent } from './shell/shell.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
+import { AppComponent } from '../app.component';
+import { HomeComponent } from '../home/home.component';
+import { OtherComponent } from '../other/other.component';
 
-const components = [ShellComponent];
+const components = [ShellComponent,AppComponent, HomeComponent, OtherComponent, ];
 
 const modules = [
   CommonModule,
@@ -31,12 +37,15 @@ const modules = [
   MatInputModule,
   MatSnackBarModule,
   RouterModule,
+  MatTooltipModule,
+  ReactiveFormsModule
 ];
 
 @NgModule({
   declarations: [...components, ShellComponent],
   imports: [...modules],
   exports: [...components, ...modules],
-   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  providers: [AuthService]
 })
 export class SharedModule {}
