@@ -1,9 +1,94 @@
-.logo {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+.isActive {
+    color: #ED8B00;
+    background-color: black;
 }
 
-.isActive {
-    color: orange;
+.toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 40px;
+    background-color: #7F7F7F;
+}
+
+.icon-container {
+    display: flex;
+    max-height: 80px;
+    min-height: 80px;
+    border-bottom: 1px solid rgb(78, 78, 78);
+    background-color: #7F7F7F;
+    cursor: pointer;
+}
+
+.icon {
+    color: #C88000;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.menu-button {
+    cursor: pointer;
+    margin: auto;
+    border-color: transparent;
+    transition: .3s;
+    background-color: transparent;
+
+    &:hover {
+        background-color: transparent;
+    }
+}
+
+.container {
+    padding: 30px;
+}
+
+li {
+    border: 1px solid black;
+}
+
+li:hover {
+    transition: .3s;
+    background-color: black;
+    color: #ED8B00;
+    border: 1px solid black;
+}
+
+.mat-drawer {
+    background-color: #7F7F7F;
+}
+
+.left {
+    margin-top: 40px;
+    margin-left: 20px;
+    transform: rotate(180deg);
+}
+
+.right {
+    margin-right: 25px;
+    transform: rotate(0deg);
+}
+
+.icon-container:hover {
+    animation: shake 0.62s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-2px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(2px, 0, 0);
+    }
 }

@@ -17,10 +17,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { AppComponent } from '../app.component';
-import { HomeComponent } from '../home/home.component';
 import { OtherComponent } from '../other/other.component';
 
-const components = [ShellComponent,AppComponent, HomeComponent, OtherComponent, ];
+const components = [ShellComponent,AppComponent, OtherComponent, ];
 
 const modules = [
   CommonModule,
@@ -31,21 +30,20 @@ const modules = [
   MatSidenavModule,
   MatListModule,
   MatMenuModule,
-  MatIconModule,
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
   MatSnackBarModule,
   RouterModule,
   MatTooltipModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 ];
 
 @NgModule({
-  declarations: [...components, ShellComponent],
+  declarations: [...components],
   imports: [...modules],
   exports: [...components, ...modules],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [AuthService]
 })
-export class SharedModule {}
+export class ShellModule {}

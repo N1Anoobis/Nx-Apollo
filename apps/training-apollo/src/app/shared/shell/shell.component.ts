@@ -13,11 +13,18 @@ export class ShellComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   isLoggedIn$: Observable<boolean>;
   private _mobileQueryListener: () => void;
+  changeDetectorRef: any;
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, private auth: AuthService) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  isExpanded =  true;
+
+  toggleSidebar() {
+    this.isExpanded = !this.isExpanded;
   }
 
   ngOnInit() {

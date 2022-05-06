@@ -1,10 +1,26 @@
-<mat-drawer-container *ngIf="isLoggedIn$ | async as isLoggedIn">
-  <mat-drawer #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches"
+<mat-drawer-container class="box">
+  <mat-drawer class="mat-drawer" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches"
     [ngClass]="{'sidenav-collapsed': collapsedNav && !mobileQuery.matches}">
-    <div class="sidenav-header logo">
-      <mat_card-content>
-        <img mat-card-image src="../../../assets/ROCHE_LOGO_36px_RGB_DIGITAL.png" alt="logo">
-      </mat_card-content>
+    <div class="icon-container"
+    (click)="mobileQuery.matches ? snav.toggle() : collapsedNav = !collapsedNav"
+    (click)="toggleSidebar()"
+    >
+        <button
+        class="menu-button"
+          mat-list-item
+          data-test-button="toggleSidebar"
+  
+        >
+
+          <mat-icon
+          class="icon"
+            [ngClass]="
+              isExpanded ? 'left' : 'right'
+            "
+          >
+            double_arrow
+          </mat-icon>
+        </button>
     </div>
     <ul>
       <li routerLink="/home" routerLinkActive="isActive">
@@ -32,14 +48,17 @@
     </ul>
   </mat-drawer>
   <mat-drawer-content [ngClass]="{'sidenav-collapsed': collapsedNav && !mobileQuery.matches}">
-    <mat-toolbar>
-      <!-- <button mat-icon-button (click)="snav.toggle()"> -->
-      <button mat-icon-button (click)="mobileQuery.matches ? snav.toggle() : collapsedNav = !collapsedNav">
-        <mat-icon>menu</mat-icon>
-      </button>
+    <mat-toolbar class="toolbar">    
+    <div class="sidenav-header logo">
+      <mat_card-content>
+        <img mat-card-image src="../../../assets/ROCHE_LOGO_36px_RGB_DIGITAL.png" alt="logo">
+      </mat_card-content>
+    </div>
     </mat-toolbar>
+<div class="container">
     <ng-include>
       <router-outlet ></router-outlet>
     </ng-include>
+  </div> 
   </mat-drawer-content>
 </mat-drawer-container>

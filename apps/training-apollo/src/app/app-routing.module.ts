@@ -1,15 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { OtherComponent } from './other/other.component';
+import { ShellComponent } from './shared/shell/shell.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'home',
-   component: HomeComponent, 
-   canActivate: [AuthGuard] },
+ 
+  {
+    path: '',
+    component: ShellComponent,
+    children: [
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./home/home.module').then((m) => m.HomeModule),
+        canActivate: [AuthGuard],
+      },
+      { path: '', component: WelcomeComponent },
+    ],
+    canActivate: [AuthGuard],
+  },
   {
     path: 'create',
     component: OtherComponent,
@@ -17,7 +30,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: 'login',
   },
 ];
 

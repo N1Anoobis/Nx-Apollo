@@ -7,7 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from './shared/shared.module'
+// import { SharedModule } from './shared/shared.module'
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from '@auth0/auth0-angular';
 import { MatTableModule } from '@angular/material/table' 
@@ -20,13 +20,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-// import { AuthService } from './auth.service';
+import { ShellModule } from './shared/shell.module';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
-  declarations: [LoginComponent ],
-  imports: [BrowserModule, ApolloModule, HttpClientModule, BrowserAnimationsModule, SharedModule, AppRoutingModule, AuthModule.forRoot({
+  declarations: [LoginComponent, WelcomeComponent ],
+  imports: [BrowserModule, ApolloModule, HttpClientModule, BrowserAnimationsModule, RouterModule, AppRoutingModule, AuthModule.forRoot({
     domain: 'anoobis.eu.auth0.com',
     clientId: 'CCCBuFZalP9ZiLZJj5WExQS7dFEXQTXe'
   }),MatTableModule,MatSortModule, 
@@ -36,6 +37,7 @@ import { LoginComponent } from './login/login.component';
   MatButtonModule,
   MatIconModule,
   MatCardModule,
+  ShellModule,
   
  ],
   providers: [
