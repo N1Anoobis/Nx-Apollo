@@ -14,8 +14,8 @@
 
 .icon-container {
     display: flex;
-    max-height: 80px;
-    min-height: 80px;
+    max-height: 64px;
+    min-height: 64px;
     border-bottom: 1px solid rgb(78, 78, 78);
     background-color: #7F7F7F;
     cursor: pointer;
@@ -59,7 +59,7 @@ li:hover {
 }
 
 .left {
-    margin-top: 40px;
+    margin-top: 30px;
     margin-left: 20px;
     transform: rotate(180deg);
 }
