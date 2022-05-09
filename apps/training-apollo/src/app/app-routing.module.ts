@@ -7,7 +7,13 @@ import { ShellComponent } from './shared/shell/shell.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
+  // { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginModule),
+    // canActivate: [AuthGuard],
+  },
  
   {
     path: '',

@@ -21,12 +21,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+// import { LoginComponent } from './login/login.component';
 import { ShellModule } from './shared/shell.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
-  declarations: [LoginComponent, WelcomeComponent ],
+  declarations: [ WelcomeComponent ],
   imports: [BrowserModule, ApolloModule, HttpClientModule, BrowserAnimationsModule, RouterModule, AppRoutingModule, AuthModule.forRoot({
     domain: 'anoobis.eu.auth0.com',
     clientId: 'CCCBuFZalP9ZiLZJj5WExQS7dFEXQTXe'
@@ -34,9 +34,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
   FormsModule,
   MatToolbarModule,
   MatSidenavModule,
-  MatButtonModule,
+ 
   MatIconModule,
-  MatCardModule,
+
   ShellModule,
   
  ],

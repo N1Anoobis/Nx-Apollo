@@ -36,7 +36,7 @@ const modules = [
   MatSnackBarModule,
   RouterModule,
   MatTooltipModule,
-  ReactiveFormsModule,
+  // ReactiveFormsModule,
 ];
 
 @NgModule({
